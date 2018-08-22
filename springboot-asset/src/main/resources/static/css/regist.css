@@ -1,0 +1,155 @@
+*{margin: 0;padding: 0;}
+html,body,section{
+	width: 100%;
+	height: 100%;
+}
+input,button,select,textarea{outline:none}
+#header,#footer{
+	height: 50%;
+	width: 100%;
+	float: left;
+}
+#header{
+	background-color: #019EFF;
+}
+#footer{
+	background-color: gainsboro;
+}
+#form_container{
+	min-width: 400px;
+	overflow-x: hidden;
+	width: 30%;
+	position: absolute;
+	z-index: 100;
+	left: 35%;
+	background-color: #FFF;
+	height: 450px;
+	top:50%;
+	margin-top: -225px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-moz-border-radius: 2px;
+	box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+	display: none;
+}
+#form_container .form_title {
+	width: 100%;
+	height: 50px;
+	margin: 15px 0px;
+	background-color: #FFFFFF;
+}
+#form_container .form_title h1{
+	text-align: center;
+	line-height: 50px;
+	width: 54%;
+	color: #7e7e7e;
+	float: left;
+	font-size: 1.5em;
+}
+#form_container .form_title .hrl{
+	margin-top: 24px;
+	height: 1px;
+	margin-right: 1%;
+	margin-left: 1%;
+	width: 21%;
+	float: left;
+	background-color: #019EFF;
+	background: -webkit-linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: -o-linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: -moz-linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	border: 0px;
+}
+#form_container .form_title .hrr{
+	margin-top: 24px;
+	height: 1px;
+	margin-left: 1%;
+	margin-right: 1%;
+	width: 21%;
+	float: left;
+	background-color: #019EFF;
+	background: -webkit-linear-gradient(right,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: -o-linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: -moz-linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	background: linear-gradient(left,rgba(1,158,255,0),rgba(1,158,255,1));
+	border: 0px;
+}
+.form_input{
+	width: 80%;
+	height: 30px;
+	margin-left: 10%;
+	margin-top: 5px;
+	font-size: 0.9em;
+	color: #777;
+}
+.form_input div span{
+	width: 20%;
+	display: inline-block;
+}
+.form_input div input{
+	width: 70%;
+	height: 30px;
+	color: #7E7E7E;
+	border:1px solid #ccc;
+}
+.form_input_sex div{
+	line-height: 30px;
+}
+.form_input_sex div input{
+	width: 25%;
+	height: 15px;
+	margin: 7.5px 0px;
+	color: #7E7E7E;
+	border:1px solid #ccc;
+}
+.tips{
+	width: 100%;
+	color: #FF0000;
+	text-align: center;
+	margin-top: 5px;
+	font-size: 0.8em;
+	margin-bottom: 10px;
+	display: block;
+	height: 15px;
+}
+.btn_login input{
+	width: 70%;
+	height: 50px;
+	margin-top: 30px;
+	margin-bottom: 15px;
+	margin-left: 15%;
+	font-size: 1.3em;
+	cursor: pointer;
+	border: 0px;
+	background-color: #F01400;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-moz-border-radius: 2px;
+	color: #FFF;
+}
+.btn_login input:hover{
+	background-color: #FF6464;
+}
+
+.form_input_bottom{
+	margin-top: 40px;
+	color: #7E7E7E;
+}
+.form_input_bottom a{
+	text-decoration: none;
+	color: #FF6464;
+}
+
+.form_input_bottom a:hover{
+	text-decoration: underline;
+}
+.form_input_bottom p{
+	float: left;
+	width: 50%;
+	display: inline-block;
+}
+.form_input_bottom p:last-child{
+	text-align: right;
+}
+
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>资产管理系统注册</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/regist.css"/>
+    <script src="../static/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="../static/js/regist.js"></script>
+</head>
+<body>
+<section>
+    <!--上半部分-->
+    <div id="header">
+
+    </div>
+
+    <!--表单区域-->
+    <form action="index.html" method="post">
+        <div id="form_container">
+            <div class="form_title">
+                <hr class="hrl"/>
+                <h1>用户注册</h1>
+                <hr class="hrr"/>
+            </div>
+            <div class="form_input form_input_loginname">
+                <div>
+                    <span class="label_title">用户名:</span>
+                    <input type="text" name="adminname" placeholder="请输入用户名" required="required"/>
+                </div>
+            </div>
+            <div class="form_input form_input_loginpwd">
+                <div>
+                    <span class="label_title">密码:</span>
+                    <input type="password" name="adminpwd" placeholder="请输入密码" required="required"/>
+                </div>
+            </div>
+
+            <div class="form_input form_input_name">
+                <div>
+                    <span class="label_title">姓名:</span>
+                    <input type="text" name="adminname" placeholder="请输入姓名" required="required"/>
+                </div>
+            </div>
+
+            <div class="form_input form_input_sex">
+                <div>
+                    <span class="label_title">性别:</span>
+                    <input type="radio" name="sex" value="man" checked="checked"/>男
+                    <input type="radio" name="sex" value="woman"/>女
+                </div>
+            </div>
+
+            <div class="form_input form_input_age">
+                <div>
+                    <span class="label_title">年龄:</span>
+                    <input type="number" name="age" max="150" min="1" placeholder="请输入年龄（1-150）" required="required"/>
+                </div>
+            </div>
+
+            <div class="form_input form_input_tel">
+                <div>
+                    <span class="label_title">电话:</span>
+                    <input type="tel" name="tel" maxlength="11" placeholder="请输入11位电话号码" required="required"/>
+                </div>
+            </div>
+
+            <div class="form_input form_input_addr">
+                <div>
+                    <span class="label_title">地址:</span>
+                    <input type="text" name="addr" maxlength="50" placeholder="请输入地址" required="required"/>
+                </div>
+            </div>
+
+            <div class="form_input form_input_email">
+                <div>
+                    <span class="label_title">邮箱:</span>
+                    <input type="email" name="email" maxlength="50" placeholder="请输入电子邮箱" required="required"/>
+                </div>
+            </div>
+            <div class="btn_login ">
+                <input type="submit" value="注&nbsp&nbsp&nbsp册" id="form_submit"/>
+            </div>
+        </div>
+    </form>
+</section>
+</body>
+</html>

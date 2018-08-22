@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>资产管理系统登陆入口</title>
+
+    <link rel="stylesheet" th:href="@{~/css/index.css}">
+    <script th:src="@{~/js/jquery-1.11.0.js}"></script>
+    <script th:src="@{~/js/index.js}"></script>
+</head>
+<body>
+<section>
+    <!--上半部分-->
+    <div id="header">
+
+    </div>
+
+    <!--表单区域-->
+    <form th:action="@{/user/login}" action="" method="post" id="login_form">
+        <div id="form_container">
+            <div class="form_title">
+                <hr class="hrl"/>
+                <h1>资产管理系统</h1>
+                <hr class="hrr"/>
+            </div>
+            <div class="form_input form_input_loginname">
+                <span class="ico_imgs ico_imgs_loginname"><img th:src="@{~/img/name.png}"/></span>
+                <div>
+                    <input type="text" name="usercode" placeholder="请输入用户名"/>
+                    <hr class="hrinput hrname"/>
+                </div>
+            </div>
+            <div class="form_input form_input_loginpwd">
+                <span class="ico_imgs ico_imgs_loginpwd"><img th:src="@{~/img/pwd.png}"/></span>
+                <div>
+                    <input type="password" name="password" placeholder="请输入密码"/>
+                    <hr class="hrinput hrpwd"/>
+                </div>
+            </div>
+            <div style="margin:15px 0px -30px 90px"><span th:text="${msg}" style="color:red;"></span></div>
+
+            <div class="btn_login">
+                <input type="submit" value="登&nbsp&nbsp&nbsp录" id="form_submit"/>
+            </div>
+        </div>
+    </form>
+
+    <div class="form_input form_input_bottom">
+        <p>没账号？前往<a href="regist.html">注册</a></p>
+        <p><a href="admin_login.html">管理员登录入口</a></p>
+    </div>
+</section>
+</body>
+</html>
