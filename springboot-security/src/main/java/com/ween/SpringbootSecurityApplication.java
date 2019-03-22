@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WeenApplication {
+public class SpringbootSecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WeenApplication.class, args);
+		SpringApplication.run(SpringbootSecurityApplication.class, args);
 	}
 }
