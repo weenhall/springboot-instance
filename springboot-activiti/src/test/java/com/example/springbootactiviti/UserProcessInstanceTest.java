@@ -50,7 +50,7 @@ public class UserProcessInstanceTest {
 
     @Test
     public void getProcessInstanceImage(){
-        String processInstanceId="27501";
+        String processInstanceId="25001";
         try{
             // 获取历史流程实例
             HistoricProcessInstance historicProcessInstance = activitiCoreBase.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();

@@ -5,6 +5,9 @@ import com.example.springbootactiviti.base.ActivitiCoreBase;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.ProcessDefinitionQueryImpl;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +68,26 @@ public class ActivitiCoreApiTest {
             System.out.println("流程定义名称: "+historicProcessInstance.getProcessDefinitionName());
             System.out.println("开始event: "+historicProcessInstance.getStartActivityId());
         }
+    }
+
+
+    @Test
+    public void listOfLatestProcessDefinition(){
+        //挂起某个流程定义
+        String processDefiniteKey="process_1569394250427";
+//        activitiCoreBase.getRepositoryService().suspendProcessDefinitionByKey(processDefiniteKey);
+        //根据流程定义的key查询流程定义
+        List<ProcessDefinition> list=activitiCoreBase.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("11").list();
+        System.out.println(list.size());
+        //查询最新版本的流程定义
+        List<ProcessDefinition> listOfAll=activitiCoreBase.getRepositoryService().createProcessDefinitionQuery().latestVersion().list();
+        listOfAll.forEach(pd->{
+            System.out.println("id:"+pd.getId());
+            System.out.println("name:"+pd.getName());
+            System.out.println("key:"+pd.getKey());
+            System.out.println("是否挂起:"+pd.isSuspended());
+            System.out.println("version:"+pd.getVersion());
+            System.out.println("=====================");
+        });
     }
 }

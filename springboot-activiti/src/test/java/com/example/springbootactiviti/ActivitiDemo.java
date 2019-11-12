@@ -34,6 +34,7 @@ public class ActivitiDemo {
         Deployment deployment = coreBase.getRepositoryService().createDeployment()
                 .name("请假流程")
                 .category("审批业务类")
+                .key("a11")
                 .addClasspathResource("processes/leave.bpmn")
                 .deploy();
         System.out.println("部署ID>>" + deployment.getId());

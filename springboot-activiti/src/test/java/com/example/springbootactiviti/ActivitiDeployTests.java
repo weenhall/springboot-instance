@@ -86,7 +86,7 @@ public class ActivitiDeployTests {
 	}
 
 	/**
-	 * 使用String字符串部署，并且没有坐标布局
+	 * 使用String字符串部署，并自动生成坐标布局
 	 */
 	@Test
 	public void deployByStringWithoutLayout() throws UnsupportedEncodingException {
