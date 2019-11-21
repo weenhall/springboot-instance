@@ -38,6 +38,9 @@ public class UserProcessInstanceTest {
     @Resource
     ProcessEngineConfiguration processEngineConfiguration;
 
+    /**
+     * 获取所有流转的流程实例
+     */
     @Test
     public void getAllUserProcessInstance(){
         List<ProcessInstance> listOfPI=activitiCoreBase.getRuntimeService().createProcessInstanceQuery().active().list();
@@ -48,6 +51,9 @@ public class UserProcessInstanceTest {
         });
     }
 
+    /**
+     * 获取某个流程实例的流转情况图
+     */
     @Test
     public void getProcessInstanceImage(){
         String processInstanceId="25001";
@@ -153,6 +159,4 @@ public class UserProcessInstanceTest {
         }
         return highLightedFlowIds;
     }
-
-
 }

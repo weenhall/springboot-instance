@@ -20,16 +20,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.zip.ZipInputStream;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ActivitiDeployTests {
+public class ActivitiDeploy {
 
 	@Autowired
 	RepositoryService repositoryService;
-	@Autowired
-	RuntimeService runtimeService;
 
 	//部署流程-BPMN文件
 	@Test
@@ -107,42 +106,4 @@ public class ActivitiDeployTests {
 				.deploy();
 		System.out.println("部署ID>>"+deployment.getId());
 	}
-
-	@Test
-	public void removeDeployById(){
-		repositoryService.deleteDeployment("5001",true);
-	}
-
-	//启动流程实例(每个实例相当于打开一张申请单)
-	@Test
-	public void processInstanceStart(){
-		String processDefiniteKey="leaveProcess";
-		ProcessInstance instance=runtimeService.startProcessInstanceByKey(processDefiniteKey);
-		System.out.println("流程实例ID:"+instance.getId());//流程实例ID
-		System.out.println("流程定义ID:"+instance.getProcessDefinitionId());//流程定义ID
-	}
-
-	//查询流程实例
-	@Test
-	public void queryProcessInstance(){
-		String processDefiniteKey="leaveProcess";
-		ProcessInstance instance=runtimeService.createProcessInstanceQuery()
-				.processDefinitionKey(processDefiniteKey)
-				.singleResult();
-		System.out.println("流程实例ID:"+instance.getId());//流程实例ID
-		System.out.println("流程定义ID:"+instance.getProcessDefinitionId());//流程定义ID
-	}
-
-	//删除流程实例
-	@Test
-	public void deleteProcessInstance(){
-		String processDefiniteKey="leaveProcess";
-		ProcessInstance instance=runtimeService.createProcessInstanceQuery()
-				.processDefinitionKey(processDefiniteKey)
-				.singleResult();
-		String processInstancId=instance.getProcessInstanceId();
-		runtimeService.deleteProcessInstance(processInstancId,"删除测试");
-	}
-
-
 }

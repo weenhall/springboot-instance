@@ -30,6 +30,10 @@ public class DynamicProcessGenerate {
     @Autowired
     ActivitiCoreBase activitiCoreBase;
 
+    /**
+     * 通过Java代码生成流程
+     * @throws IOException
+     */
     @Test
     public void testDynamicDeploy() throws IOException {
         //1.Build up the modal from scratch

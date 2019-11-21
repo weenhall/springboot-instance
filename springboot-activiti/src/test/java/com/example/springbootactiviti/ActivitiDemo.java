@@ -77,7 +77,7 @@ public class ActivitiDemo {
 //        val.put("arg0","arg0");
 //        val.put("arg1","arg1");
         //流程实例的key值
-        String processDefinitionKey = "a11";
+        String processDefinitionKey = "process_1573537843438";
 
         ProcessInstance instance = coreBase.getRuntimeService()
                 .startProcessInstanceByKey(processDefinitionKey, val);
