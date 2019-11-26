@@ -10,17 +10,17 @@ import org.activiti.engine.impl.util.io.InputStreamSource;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipInputStream;
 
 @RunWith(SpringRunner.class)
@@ -28,7 +28,9 @@ import java.util.zip.ZipInputStream;
 public class ActivitiDeploy {
 
 	@Autowired
-	RepositoryService repositoryService;
+	private RepositoryService repositoryService;
+	@Autowired
+	private RuntimeService runtimeService;
 
 	//部署流程-BPMN文件
 	@Test
@@ -105,5 +107,63 @@ public class ActivitiDeploy {
 //                .addString("fireflow.bomn20.xml",xmlStr)
 				.deploy();
 		System.out.println("部署ID>>"+deployment.getId());
+	}
+
+	/**
+	 * 获取流程图
+	 */
+	@Test
+	public void getDeployedPngByXML() throws Exception{
+		String xmlStr="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+				"<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\n" +
+				" <process id=\"process_1574668599920\" name=\"process_1574668599920\" isExecutable=\"true\">\n" +
+				"  <startEvent id=\"mx_2\" name=\"火警_1\"></startEvent>\n" +
+				"  <parallelGateway id=\"mx_3\" name=\"并行网关_1\"></parallelGateway>\n" +
+				"  <userTask id=\"mx_4\" name=\"工业电视_1\" activiti:assignee=\"${next}\">\n" +
+				"    <documentation>[{\"Type\":\"camera\"},{\"DeviceId\":\"1000000$1$0$10\"}]</documentation>\n" +
+				"  </userTask>\n" +
+				"  <userTask id=\"mx_5\" name=\"工业电视_2\" activiti:assignee=\"${next}\">\n" +
+				"    <documentation>[{\"Type\":\"camera\"},{\"DeviceId\":\"1000000$1$0$13\"}]</documentation>\n" +
+				"  </userTask>\n" +
+				"  <userTask id=\"mx_6\" name=\"工业电视_3\" activiti:assignee=\"${next}\">\n" +
+				"    <documentation>[{\"Type\":\"camera\"},{\"DeviceId\":\"1000000$1$0$15\"}]</documentation>\n" +
+				"  </userTask>\n" +
+				"  <parallelGateway id=\"mx_7\" name=\"并行网关_2\"></parallelGateway>\n" +
+				"  <endEvent id=\"mx_8\" ></endEvent>\n" +
+				"  <sequenceFlow id=\"mx_9\" sourceRef=\"mx_2\" targetRef=\"mx_3\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_10\" sourceRef=\"mx_3\" targetRef=\"mx_4\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_11\" sourceRef=\"mx_3\" targetRef=\"mx_5\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_12\" sourceRef=\"mx_3\" targetRef=\"mx_6\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_13\" sourceRef=\"mx_4\" targetRef=\"mx_7\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_14\" sourceRef=\"mx_5\" targetRef=\"mx_7\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_15\" sourceRef=\"mx_6\" targetRef=\"mx_7\"></sequenceFlow>\n" +
+				"  <sequenceFlow id=\"mx_16\" sourceRef=\"mx_7\" targetRef=\"mx_8\"></sequenceFlow>\n" +
+				" </process>\n" +
+				"</definitions>";
+		String processDefineKey="process_1574668599920";
+		InputStream is=new ByteArrayInputStream(xmlStr.getBytes("UTF-8"));
+		BpmnXMLConverter bpmnXMLConverter=new BpmnXMLConverter();
+		InputStreamProvider provider=new InputStreamSource(is);
+		BpmnModel bpmnModel=bpmnXMLConverter.convertToBpmnModel(provider,true,false,"UTF-8");
+		//Generate graphical information
+		new BpmnAutoLayout(bpmnModel).execute();
+		Deployment deployment=repositoryService.createDeployment()
+				.addBpmnModel("dynamic-model.bpmn",bpmnModel)
+				.name("Dynamic process deployment")
+				.deploy();
+		Map<String, Object> val = new HashMap<>();
+		val.put("next","wuwh");
+		ProcessInstance instance=runtimeService.startProcessInstanceByKey(processDefineKey,val);
+		InputStream processDiagram=repositoryService.getProcessDiagram(instance.getProcessDefinitionId());
+		FileUtils.copyInputStreamToFile(processDiagram,new File("target/diagram.png"));
+		repositoryService.deleteDeployment(deployment.getId(),true);//删除测试
+	}
+
+	@Test
+	public void removeDeployes(){
+		String [] deployedIds=new String[]{"10001"};
+		for (int i = 0; i < deployedIds.length; i++) {
+			repositoryService.deleteDeployment(deployedIds[i],true);//级联删除流程有关的所有数据
+		}
 	}
 }

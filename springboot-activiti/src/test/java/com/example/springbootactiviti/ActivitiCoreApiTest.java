@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
- * Created by ween on 2019/3/22
+ * @author ween
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -98,7 +98,7 @@ public class ActivitiCoreApiTest {
      */
     @Test
     public void removeDeployById(){
-        String processDefiniteKey="process_1573695862791";
+        String processDefiniteKey="process_1574317647633";
         List<ProcessDefinition> list=activitiCoreBase.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey(processDefiniteKey).list();
         list.forEach(pd->{
             activitiCoreBase.getRepositoryService().deleteDeployment(pd.getDeploymentId(),true);

@@ -70,17 +70,19 @@ public class ActivitiDemo {
     //打开一个实例
     @Test
     public void startProcessInstance() {
+        //设置流程发起用户
+        coreBase.getIdentityService().setAuthenticatedUserId("admin");
         //指定下一步用户
         String userId = "wuwh";
         Map<String, Object> val = new HashMap<>();
         val.put("next", userId);
 //        val.put("arg0","arg0");
 //        val.put("arg1","arg1");
-        //流程实例的key值
-        String processDefinitionKey = "process_1573537843438";
-
+        String processDefinitionKey = "process_1574317647633";
         ProcessInstance instance = coreBase.getRuntimeService()
                 .startProcessInstanceByKey(processDefinitionKey, val);
+        //设置流程实例名称
+        coreBase.getRuntimeService().setProcessInstanceName(instance.getId(),"测试数据");
 
         System.out.println("=========启动一个流程实例==========");
         System.out.println("流程定义的Id:" + instance.getProcessDefinitionId());
@@ -105,11 +107,11 @@ public class ActivitiDemo {
     //查询任务
     @Test
     public void queryTask() {
-        String assignee = "wuwh2";
+        String assignee = "wuwh";
         List<Task> list = coreBase.getTaskService().createTaskQuery()
                 .taskAssignee(assignee)
                 .list();
-        System.out.println("查询到wuwh2下有以下任务");
+        System.out.println("查询到wuwh下有以下任务");
         if (list != null && list.size() > 0) {
             for (Task task : list) {
                 System.out.println("==========分割线==========");
@@ -139,9 +141,9 @@ public class ActivitiDemo {
     @Test
     public void completeTask() {
         System.out.println("办理某条任务");
-        String taskId = "20003";
+        String taskId = "10008";
         Map<String, Object> val = new HashMap<>();
-        val.put("next","wuwh3");
+        val.put("next","wuwh1");
 //        val.put("leave_days", 2);
         System.out.println("获取当前步骤任务变量");
         Map<String, Object> map = coreBase.getTaskService().getVariables(taskId);
