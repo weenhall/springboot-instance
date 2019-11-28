@@ -14,13 +14,13 @@ import java.util.Optional;
 @Component
 public class ConsumerDemo {
 
-    @KafkaListener(topics = {"outputs_info"})
+    @KafkaListener(topics = {"test"})
     public void listen(ConsumerRecord<?,?> record){
         Optional<?> kafkaMessage=Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()){
             Object Message=kafkaMessage.get();
-            System.out.println("--record"+record);
-            System.out.println("--message"+Message);
+            System.out.println("==record=="+record);
+            System.out.println("==message=="+Message);
         }
     }
 

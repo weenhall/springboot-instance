@@ -1,7 +1,5 @@
-package com.example.springbootkafka.procedure;
+package com.example.springbootkafka.producer;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
