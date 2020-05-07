@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-@RestController
+@RestController(value = "/excel")
 public class ExcelController {
 
     /**
