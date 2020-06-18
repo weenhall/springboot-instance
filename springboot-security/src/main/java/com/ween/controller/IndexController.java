@@ -12,6 +12,11 @@ public class IndexController {
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String home(){
+        try {
+            Thread.sleep(15*1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "home";
     }
 
