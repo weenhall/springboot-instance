@@ -78,7 +78,7 @@ public class ActivitiDemo {
         val.put("next", userId);
 //        val.put("arg0","arg0");
 //        val.put("arg1","arg1");
-        String processDefinitionKey = "process_1574317647633";
+        String processDefinitionKey = "process_1581331375619";
         ProcessInstance instance = coreBase.getRuntimeService()
                 .startProcessInstanceByKey(processDefinitionKey, val);
         //设置流程实例名称
@@ -135,13 +135,13 @@ public class ActivitiDemo {
     @Test
     public void claimTask(){
         String claimUser="zhangshan";
-        coreBase.getTaskService().claim("7504",claimUser);
+        coreBase.getTaskService().claim("2509",claimUser);
     }
     //办理任务
     @Test
     public void completeTask() {
         System.out.println("办理某条任务");
-        String taskId = "10008";
+        String taskId = "2509";
         Map<String, Object> val = new HashMap<>();
         val.put("next","wuwh1");
 //        val.put("leave_days", 2);
