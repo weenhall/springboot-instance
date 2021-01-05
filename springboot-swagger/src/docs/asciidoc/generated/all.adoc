@@ -1,0 +1,205 @@
+= xx系统API文档
+
+
+[[_overview]]
+== 概览
+文档相关信息:
+
+
+=== 版本信息
+[%hardbreaks]
+__版本__ : 0.1.1
+
+
+=== 联系方式
+[%hardbreaks]
+__名字__ : weenall
+__邮箱__ : weenhallwu@gmail.com
+
+
+=== 许可信息
+[%hardbreaks]
+__许可证__ : Apache 2.0
+__许可网址__ : http://www.apache.org/licenses/LICENSE-2.0
+__服务条款__ : localhost:8080/about.html
+
+
+=== URI scheme
+[%hardbreaks]
+__域名__ : localhost:8080
+__基础路径__ : /
+
+
+=== 标签
+
+* 测试接口 : Test Controller
+
+
+
+
+[[_paths]]
+== 资源
+
+[[_cba1afa8756152014d0034b3b9dc688b]]
+=== 测试接口
+Test Controller
+
+
+[[_getpersonbynameusingput]]
+==== 根据用户姓名修改密码
+....
+PUT /test/changePassword
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|类型|名称|说明|类型|默认值
+|**Query**|**fresh** +
+__必填__|新密码|string|`"123456"`
+|**Query**|**name** +
+__必填__|用户姓名|string|`"testUser"`
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_c2d667b8a3f2d3260c2fffc9b5454834,用户实体类>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/test/changePassword
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "fresh" : "string",
+  "name" : "string"
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "fullname" : "string",
+  "password" : "string"
+}
+----
+
+
+[[_getpersonbynameusingget]]
+==== 根据用户姓名查询
+....
+GET /test/getByName
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4,.^2"]
+|===
+|类型|名称|说明|类型|默认值
+|**Query**|**name** +
+__必填__|用户姓名|string|`"testUser"`
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_c2d667b8a3f2d3260c2fffc9b5454834,用户实体类>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/test/getByName
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "name" : "string"
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "fullname" : "string",
+  "password" : "string"
+}
+----
+
+
+
+
+[[_definitions]]
+== 定义
+
+[[_c2d667b8a3f2d3260c2fffc9b5454834]]
+=== 用户实体类
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**fullname** +
+__可选__|用户姓名 +
+**样例** : `"string"`|string
+|**password** +
+__可选__|用户密码 +
+**样例** : `"string"`|string
+|===
+
+
+
+
+

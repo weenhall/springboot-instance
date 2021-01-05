@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.ween;
 
-import com.example.demo.pojo.Book;
+import com.ween.pojo.Book;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ public class SpringbootRedisApplication {
 
 
 	@Bean
-	public RedisTemplate<String,Book> redisTemplate(RedisConnectionFactory factory){
+	public RedisTemplate<String, Book> redisTemplate(RedisConnectionFactory factory){
 		RedisTemplate<String,Book> template=new RedisTemplate<>();
 		template.setConnectionFactory(factory);
 		//Add some specific configuration here,Key serializers, etc
