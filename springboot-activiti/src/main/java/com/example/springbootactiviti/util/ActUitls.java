@@ -112,7 +112,7 @@ public class ActUitls {
                 for (SequenceFlow sequenceFlow : sequenceFlows) {
                     for (HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
                         if (historicActivityInstance.getActivityId().equals(sequenceFlow.getTargetRef())) {
-                            Map<String, Object> map = new HashMap<>();
+                            Map<String, Object> map = new HashMap<>(16);
                             map.put("highLightedFlowId", sequenceFlow.getId());
                             map.put("highLightedFlowStartTime", historicActivityInstance.getStartTime().getTime());
                             tempMapList.add(map);

@@ -48,9 +48,20 @@ import java.util.List;
 public class CustomProcessDiagramCanvas {
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(CustomProcessDiagramCanvas.class);
-	
+
 	public enum SHAPE_TYPE {
-		Rectangle, Rhombus, Ellipse
+		/**
+		 * 矩形
+		 */
+		Rectangle,
+		/**
+		 * 菱形
+		 */
+		Rhombus,
+		/**
+		 *椭圆
+		 */
+		Ellipse
 	}
 	
 	// Predefined sized
@@ -363,8 +374,9 @@ public class CustomProcessDiagramCanvas {
 		g.fill(outerCircle);
 		
 		g.setPaint(EVENT_BORDER_COLOR);
-		if (isInterrupting == false)
+		if (isInterrupting == false) {
 			g.setStroke(NON_INTERRUPTING_EVENT_STROKE);
+		}
 		g.draw(outerCircle);
 		g.setStroke(originalStroke);
 		g.setPaint(originalPaint);
@@ -446,8 +458,9 @@ public class CustomProcessDiagramCanvas {
 	
 	public void drawSequenceflow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
 		Paint originalPaint = g.getPaint();
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(HIGHLIGHT_COLOR);
+		}
 		
 		Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
 		g.draw(line);
@@ -457,8 +470,9 @@ public class CustomProcessDiagramCanvas {
 			drawConditionalSequenceFlowIndicator(line, scaleFactor);
 		}
 		
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(originalPaint);
+		}
 	}
 	
 	public void drawAssociation(int[] xPoints, int[] yPoints, AssociationDirection associationDirection, boolean highLighted, double scaleFactor) {
@@ -477,7 +491,7 @@ public class CustomProcessDiagramCanvas {
 		Stroke originalStroke = g.getStroke();
 		
 		g.setPaint(CONNECTION_COLOR);
-		if (connectionType.equals("association")) {
+		if ("association".equals(connectionType)) {
 			g.setStroke(ASSOCIATION_STROKE);
 		} else if (highLighted) {
 			g.setPaint(HIGHLIGHT_COLOR);
@@ -521,8 +535,9 @@ public class CustomProcessDiagramCanvas {
 	
 	public void drawSequenceflowWithoutArrow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
 		Paint originalPaint = g.getPaint();
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(HIGHLIGHT_COLOR);
+		}
 		
 		Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
 		g.draw(line);
@@ -531,8 +546,9 @@ public class CustomProcessDiagramCanvas {
 			drawConditionalSequenceFlowIndicator(line, scaleFactor);
 		}
 		
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(originalPaint);
+		}
 	}
 	
 	public void drawArrowHead(Line2D.Double line, double scaleFactor) {
@@ -585,8 +601,9 @@ public class CustomProcessDiagramCanvas {
 	}
 	
 	public void drawConditionalSequenceFlowIndicator(Line2D.Double line, double scaleFactor) {
-		if (scaleFactor > 1.0)
+		if (scaleFactor > 1.0) {
 			return;
+		}
 		int horizontal = (int) (CONDITIONAL_INDICATOR_WIDTH * 0.7);
 		int halfOfHorizontal = horizontal / 2;
 		int halfOfVertical = CONDITIONAL_INDICATOR_WIDTH / 2;
@@ -665,8 +682,9 @@ public class CustomProcessDiagramCanvas {
 		g.setPaint(TASK_BOX_COLOR);
 		
 		int arcR = 6;
-		if (thickBorder)
+		if (thickBorder) {
 			arcR = 3;
+		}
 		
 		// shape
 		RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, arcR, arcR);
@@ -1107,8 +1125,9 @@ public class CustomProcessDiagramCanvas {
 				textY += tl.getAscent();
 				Rectangle2D bb = tl.getBounds();
 				double tX = graphicInfo.getX();
-				if (centered)
+				if (centered) {
 					tX += (int) (graphicInfo.getWidth() / 2 - bb.getWidth() / 2);
+				}
 				tl.draw(g, (float) tX, textY);
 				textY += tl.getDescent() + tl.getLeading() + (interline - 1.0f) * tl.getAscent();
 			}
