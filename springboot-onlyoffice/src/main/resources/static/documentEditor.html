@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>documentEditor</title>
+    <script type="text/javascript" src="http://192.168.2.34:8083/web-apps/apps/api/documents/api.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="placeholder"></div>
+<script>
+    var config = {
+        "document": {
+            "fileType": "docx",
+            "key": "tjsd",
+            "title": "测试文档.docx",
+            "url": "http://localhost:7900/test/%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=qnkj%2F20210126%2F%2Fs3%2Faws4_request&X-Amz-Date=20210126T021117Z&X-Amz-Expires=432000&X-Amz-SignedHeaders=host&X-Amz-Signature=a3763447f224786706d613fce1d852c3758d7039624524bbc89987aaed7bbcb2",
+            "info":{
+                "uploaded": "2010-07-07 3:46 PM"
+            },
+            "permissions": {
+                "comment": false,
+                "download": true,
+                "edit": true,
+                "fillForms": true,
+                "print": true,
+                "review": false
+            }
+        },
+        "documentType": "text",
+        "editorConfig": {
+            "callbackUrl": "http://192.168.2.34:8080/document/server/callback",
+            "region":"zh_CN",
+            "lang":"zh_CN",
+            "mode":"edit",
+            "user":{
+                "id":"test",
+                "name":"测试人员"
+            },
+            "customization":{
+                "help":false,
+                "autosave": false,
+                "chat": false,
+                "commentAuthorOnly": false,
+                "compactToolbar": false
+            }
+        }
+    };
+    var docEditor = new DocsAPI.DocEditor("placeholder", config);
+</script>
+</body>
+</html>
