@@ -1,6 +1,7 @@
 package com.example.springbootactiviti.util;
 
 import com.example.springbootactiviti.base.ActivitiCoreBase;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
@@ -8,13 +9,10 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
 import javax.annotation.Resource;
-import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -25,6 +23,7 @@ import java.util.Map;
 /**
  * @author ween
  */
+@Slf4j
 @Component
 public class ActUitls {
     @Autowired
@@ -68,7 +67,7 @@ public class ActUitls {
                 }
             }
         }catch (Exception e){
-            System.out.println("processInstanceId" + processInstanceId + "生成流程图失败，原因：" + e.getMessage());
+           log.error("processInstanceId:{} 生成流程图失败，原因:{}" , processInstanceId , e.getMessage());
         }
     }
 
