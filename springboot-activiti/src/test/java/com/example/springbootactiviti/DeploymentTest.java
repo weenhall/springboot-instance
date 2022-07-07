@@ -1,14 +1,13 @@
 package com.example.springbootactiviti;
 
+import com.example.springbootactiviti.base.ActivitiCoreBase;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.BpmnAutoLayout;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.converter.util.InputStreamProvider;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.impl.util.io.InputStreamSource;
 import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -18,46 +17,64 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.zip.ZipInputStream;
-
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ActivitiDeploy {
+public class DeploymentTest {
 
 	@Autowired
-	private RepositoryService repositoryService;
-	@Autowired
-	private RuntimeService runtimeService;
+	private ActivitiCoreBase coreBase;
+	private static final String DEPLOYMENT_TENANT ="TEST";
+	private static final String DEPLOYMENT_CATEGORY="测试";
 
-	//部署流程-BPMN文件
+	private void log(Deployment deployment){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		log.info("部署ID:{}",deployment.getId());
+		log.info("部署名称:{}",deployment.getName());
+		log.info("部署时间:{}",sdf.format(deployment.getDeploymentTime()));
+		log.info("部署租户:{}",deployment.getTenantId());
+		log.info("部署分类:{}",deployment.getCategory());
+		log.info("部署密钥:{}",deployment.getKey());
+	}
+	/**
+	 *部署流程-BPMN文件
+	 */
 	@Test
 	public void deployByBpmnFile() {
-		Deployment deployment=repositoryService.createDeployment()
-				.name("helloWorld")
-				.addClasspathResource("processes/leave.bpmn")
+		Deployment deployment=coreBase.getRepositoryService().createDeployment()
+				.name("候选组任务测试")
+				.category(DEPLOYMENT_CATEGORY)
+				.tenantId(DEPLOYMENT_TENANT)
+				.addClasspathResource("processes/grouptask.bpmn")
 				.deploy();
-		System.out.println(deployment.getId()+"-->"+deployment.getName());
-		//删除流程
-//		String deployId=deployment.getId();
-//		repositoryService.deleteDeployment(deployId,true);
+		log(deployment);
 	}
 
-	//部署流程-ZIP
+	/**
+	 *部署流程-ZIP
+	 */
 	@Test
 	public void deployByZip() throws IOException{
 		InputStream in=this.getClass().getClassLoader().getResourceAsStream("processes/myProcess.zip");
+		assert in != null;
 		ZipInputStream zipInputStream=new ZipInputStream(in);
-		Deployment deployment=repositoryService.createDeployment()
+		Deployment deployment=coreBase.getRepositoryService().createDeployment()
 				.name("helloworld-zip")
+				.category("测试")
+				.tenantId("test")
 				.addZipInputStream(zipInputStream)
 				.deploy();
 		zipInputStream.close();
+		log(deployment);
 	}
 
-	//部署流程-xml字符串
+	/**
+	 *部署流程-xml字符串
+	 */
 	@Test
 	public void deployByStr() {
 		String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
@@ -78,12 +95,13 @@ public class ActivitiDeploy {
 				"    <sequenceFlow id=\"_10\" sourceRef=\"_7\" targetRef=\"_9\"/>\n" +
 				"  </process> \n" +
 				"</definitions>";
-		Deployment deployment = repositoryService.createDeployment()
+		Deployment deployment = coreBase.getRepositoryService().createDeployment()
 				.name("请假流程")
-				.category("审批业务类")
+				.category(DEPLOYMENT_CATEGORY)
+				.tenantId(DEPLOYMENT_TENANT)
 				.addString("helloworld.bpmn", xmlString)
 				.deploy();
-		System.out.println(deployment.getId() + "-->" + deployment.getName());
+		log(deployment);
 	}
 
 	/**
@@ -94,19 +112,20 @@ public class ActivitiDeploy {
 //		repositoryService.deleteDeployment("20001",true);
 		//将bpmnXml转换成bpmnModel
 		String xmlStr="<?xml version=\"1.0\" encoding=\"UTF-8\"?><definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\"> <process id=\"process_1569394250427\" name=\"process_1569394250427\" isExecutable=\"true\">  <startEvent id=\"mx_2\" name=\"火警_1\"></startEvent>  <exclusiveGateway id=\"mx_3\" name=\"排他网关_1\"></exclusiveGateway>   <userTask id=\"mx_4\" name=\"摄像头_1\" activiti:assignee=\"${next}\">   </userTask>   <userTask id=\"mx_5\" name=\"短信_1\" activiti:assignee=\"${next}\">   </userTask>  <sequenceFlow id=\"mx_6\" sourceRef=\"mx_2\" targetRef=\"mx_3\"></sequenceFlow>  <sequenceFlow id=\"mx_7\" sourceRef=\"mx_3\" targetRef=\"mx_4\"></sequenceFlow>  <sequenceFlow id=\"mx_8\" sourceRef=\"mx_4\" targetRef=\"mx_9\"></sequenceFlow>  <exclusiveGateway id=\"mx_9\" name=\"排他网关_2\"></exclusiveGateway>  <sequenceFlow id=\"mx_10\" sourceRef=\"mx_9\" targetRef=\"mx_5\"></sequenceFlow>   <userTask id=\"mx_11\" name=\"结束事件_1\" activiti:assignee=\"${next}\">   </userTask>  <sequenceFlow id=\"mx_12\" sourceRef=\"mx_5\" targetRef=\"mx_11\"></sequenceFlow> </process></definitions>";
-		InputStream is=new ByteArrayInputStream(xmlStr.getBytes("UTF-8"));
+		InputStream is=new ByteArrayInputStream(xmlStr.getBytes(StandardCharsets.UTF_8));
+
 		BpmnXMLConverter bpmnXMLConverter=new BpmnXMLConverter();
 		InputStreamProvider provider=new InputStreamSource(is);
-		BpmnModel bpmnModel=bpmnXMLConverter.convertToBpmnModel(provider,true,false,"UTF-8");
+		BpmnModel bpmnModel=bpmnXMLConverter.convertToBpmnModel(provider,true,false,StandardCharsets.UTF_8.name());
 		//2.Generate graphical information
 		new BpmnAutoLayout(bpmnModel).execute();
-		Deployment deployment=repositoryService.createDeployment()
-				.name("火警报警")
-				.category("申请类业务")
+		Deployment deployment=coreBase.getRepositoryService().createDeployment()
+				.name("fire-alarm")
+				.category(DEPLOYMENT_CATEGORY)
+				.tenantId(DEPLOYMENT_TENANT)
 				.addBpmnModel("fireflow.bpmn20.xml",bpmnModel)
-//                .addString("fireflow.bomn20.xml",xmlStr)
 				.deploy();
-		System.out.println("部署ID>>"+deployment.getId());
+		log(deployment);
 	}
 
 	/**
@@ -141,29 +160,43 @@ public class ActivitiDeploy {
 				" </process>\n" +
 				"</definitions>";
 		String processDefineKey="process_1574668599920";
-		InputStream is=new ByteArrayInputStream(xmlStr.getBytes("UTF-8"));
+		InputStream is=new ByteArrayInputStream(xmlStr.getBytes(StandardCharsets.UTF_8));
 		BpmnXMLConverter bpmnXMLConverter=new BpmnXMLConverter();
 		InputStreamProvider provider=new InputStreamSource(is);
 		BpmnModel bpmnModel=bpmnXMLConverter.convertToBpmnModel(provider,true,false,"UTF-8");
 		//Generate graphical information
 		new BpmnAutoLayout(bpmnModel).execute();
-		Deployment deployment=repositoryService.createDeployment()
+		Deployment deployment=coreBase.getRepositoryService().createDeployment()
 				.addBpmnModel("dynamic-model.bpmn",bpmnModel)
 				.name("Dynamic process deployment")
 				.deploy();
 		Map<String, Object> val = new HashMap<>();
 		val.put("next","wuwh");
-		ProcessInstance instance=runtimeService.startProcessInstanceByKey(processDefineKey,val);
-		InputStream processDiagram=repositoryService.getProcessDiagram(instance.getProcessDefinitionId());
+		ProcessInstance instance=coreBase.getRuntimeService().startProcessInstanceByKey(processDefineKey,val);
+		InputStream processDiagram=coreBase.getRepositoryService().getProcessDiagram(instance.getProcessDefinitionId());
 		FileUtils.copyInputStreamToFile(processDiagram,new File("target/diagram.png"));
-		repositoryService.deleteDeployment(deployment.getId(),true);//删除测试
+		//删除部署
+		coreBase.getRepositoryService().deleteDeployment(deployment.getId(),true);
 	}
 
+	/**
+	 * 删除部署
+	 */
 	@Test
-	public void removeDeployes(){
-		String [] deployedIds=new String[]{"10001"};
-		for (int i = 0; i < deployedIds.length; i++) {
-			repositoryService.deleteDeployment(deployedIds[i],true);//级联删除流程有关的所有数据
-		}
+	public void removeSingleDeployed(){
+		String deployId="";
+		coreBase.getRepositoryService().deleteDeployment(deployId,true);
+	}
+
+	/**
+	 * 删除所有部署
+	 */
+	@Test
+	public void removeAllDeployed(){
+		List<Deployment> list=coreBase.getRepositoryService().createDeploymentQuery().list();
+		list.forEach(item->{
+			coreBase.getRepositoryService().deleteDeployment(item.getId(),true);
+			log.info("流程部署:<{}> 已删除",item.getName());
+		});
 	}
 }

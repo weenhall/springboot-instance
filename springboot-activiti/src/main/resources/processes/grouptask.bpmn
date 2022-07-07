@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/grouptask">
+  <process id="grouptask" name="组任务测试" isExecutable="true">
+    <startEvent id="groupTask" name="组任务测试">
+      <documentation>组任务测试</documentation>
+    </startEvent>
+    <userTask id="groupTaskHR" name="候选组测试-HR" activiti:candidateGroups="HR"></userTask>
+    <sequenceFlow id="sid-343A3A6D-F553-47B9-9659-650E70045031" sourceRef="groupTask" targetRef="groupTaskHR"></sequenceFlow>
+    <endEvent id="sid-AD540B8D-3753-41A3-A716-C358B5D5E16C"></endEvent>
+    <sequenceFlow id="sid-E6F28EC3-1858-4F5C-B983-908CECF17B6A" sourceRef="groupTaskHR" targetRef="sid-AD540B8D-3753-41A3-A716-C358B5D5E16C"></sequenceFlow>
+    <userTask id="groupTaskMANAGER" name="候选组任务-MANAGER" activiti:candidateGroups="MANAGER"></userTask>
+    <sequenceFlow id="sid-B075D292-E069-47A5-9329-EEE8F6FEF570" sourceRef="groupTaskHR" targetRef="groupTaskMANAGER"></sequenceFlow>
+    <endEvent id="sid-BCAE9198-62F4-4878-909B-A96A837911CE"></endEvent>
+    <sequenceFlow id="sid-D21650FA-E110-4C6A-BAFC-A4340F283BBF" sourceRef="groupTaskMANAGER" targetRef="sid-BCAE9198-62F4-4878-909B-A96A837911CE"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_grouptask">
+    <bpmndi:BPMNPlane bpmnElement="grouptask" id="BPMNPlane_grouptask">
+      <bpmndi:BPMNShape bpmnElement="groupTask" id="BPMNShape_groupTask">
+        <omgdc:Bounds height="30.0" width="30.0" x="180.2" y="146.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="groupTaskHR" id="BPMNShape_groupTaskHR">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.2" y="121.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-AD540B8D-3753-41A3-A716-C358B5D5E16C" id="BPMNShape_sid-AD540B8D-3753-41A3-A716-C358B5D5E16C">
+        <omgdc:Bounds height="28.0" width="28.0" x="400.2" y="147.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="groupTaskMANAGER" id="BPMNShape_groupTaskMANAGER">
+        <omgdc:Bounds height="80.0" width="100.0" x="400.2" y="121.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-BCAE9198-62F4-4878-909B-A96A837911CE" id="BPMNShape_sid-BCAE9198-62F4-4878-909B-A96A837911CE">
+        <omgdc:Bounds height="28.0" width="28.0" x="545.2" y="147.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-B075D292-E069-47A5-9329-EEE8F6FEF570" id="BPMNEdge_sid-B075D292-E069-47A5-9329-EEE8F6FEF570">
+        <omgdi:waypoint x="355.2" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.2" y="161.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E6F28EC3-1858-4F5C-B983-908CECF17B6A" id="BPMNEdge_sid-E6F28EC3-1858-4F5C-B983-908CECF17B6A">
+        <omgdi:waypoint x="355.2" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.2" y="161.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-343A3A6D-F553-47B9-9659-650E70045031" id="BPMNEdge_sid-343A3A6D-F553-47B9-9659-650E70045031">
+        <omgdi:waypoint x="210.2" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.2" y="161.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D21650FA-E110-4C6A-BAFC-A4340F283BBF" id="BPMNEdge_sid-D21650FA-E110-4C6A-BAFC-A4340F283BBF">
+        <omgdi:waypoint x="500.2" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.2" y="161.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -23,6 +23,7 @@
         <module>springboot-session</module>
         <module>springboot-shiro</module>
         <module>springboot-swagger</module>
+        <module>springboot-websocket</module>
     </modules>
 
     <properties>
