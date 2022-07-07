@@ -1,6 +1,6 @@
-## DESCRIPTION 
+
 ### Environment
 |  NAME   | VERSION  |
 |  ----  | ----  |
-| ES  | 7.12.1 |
+| Elasticsearch  | 7.17.3 |
 | JDK  | 1.8 |
