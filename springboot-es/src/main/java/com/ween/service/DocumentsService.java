@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -30,6 +31,10 @@ public class DocumentsService {
 //			strList.add(item.source().toString());
 //		});
 //		return String.join(",",strList);
+		return null;
+	}
+
+	public List<Map<String,String>> search(String keyword){
 		return null;
 	}
 }

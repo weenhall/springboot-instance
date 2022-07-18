@@ -1,27 +1,31 @@
 package com.ween.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.List;
+
 @Data
 @Builder
-@Document(indexName = "documents")
-public class Documents {
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(indexName = "songci")
+public class SongCi {
 
 	@Id
 	private String id;
-
 	@Field(type = FieldType.Keyword)
-	private String name;
-
+	private String author;
 	@Field(type = FieldType.Text,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word")
-	private String content;
-
+	private List<String> paragraphs;
 	@Field(type = FieldType.Keyword)
-	private String ext;
-
+	private String rhythmic;
+	@Field(type = FieldType.Keyword)
+	private List<String> tags;
 }

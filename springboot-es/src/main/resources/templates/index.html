@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ES FOR SEARCH</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}">
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <style>
+        body {
+            background: #eee;
+
+        }
+
+        .search-result .title h3 {
+            margin: 0 0 15px;
+            color: #333;
+        }
+
+        .search-result .title p {
+            font-size: 12px;
+            color: #333;
+        }
+
+        .well {
+            border: 0;
+            padding: 20px;
+            min-height: 63px;
+            background: #fff;
+            box-shadow: none;
+            border-radius: 3px;
+            position: relative;
+            max-height: 100000px;
+            border-bottom: 2px solid #ccc;
+            transition: max-height 0.5s ease;
+            -o-transition: max-height 0.5s ease;
+            -ms-transition: max-height 0.5s ease;
+            -moz-transition: max-height 0.5s ease;
+            -webkit-transition: max-height 0.5s ease;
+        }
+
+        .form-control {
+            height: 45px;
+            padding: 10px;
+            font-size: 16px;
+            box-shadow: none;
+            border-radius: 0;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well search-result">
+                <div class="input-group">
+                    <input name="keyword" type="text" class="form-control" placeholder="输入关键词"/>
+                    <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button" onclick="search()">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>
+            </span>
+                </div>
+            </div>
+            <div class="well search-result">
+                <div class="row">
+                    <a href="#">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+                            <img class="img-responsive" src="https://via.placeholder.com/400x200/7B68EE/000000" alt="">
+                        </div>
+                        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                            <h3>Result name one</h3>
+                            <p>Ut quis libero id orci semper porta ac vel ante. In nec laoreet sapien. Nunc hendrerit
+                                ligula at massa sodales, ullamcorper rutrum orci semper.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-info  btn-block">
+                    <i class="glyphicon glyphicon-refresh"></i>加载更多...
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function search() {
+        var keyword=$('input[name="keyword"]').val();
+        if(keyword.trim().length===0){
+            return;
+        }
+        console.log("search keyword:%s",keyword);
+        debugger;
+    }
+</script>
+</body>
+</html>
