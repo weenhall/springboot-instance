@@ -12,8 +12,6 @@ public class ActivitiConfig implements ProcessEngineConfigurationConfigurer {
 
 	@Override
 	public void configure(SpringProcessEngineConfiguration processEngineConfiguration) {
-		//禁用自带用户服务
-		processEngineConfiguration.setDbIdentityUsed(false);
 		//启用自定义用户组
 		CustomGroupEntityManager manager=new CustomGroupEntityManager(processEngineConfiguration);
 		processEngineConfiguration.setGroupDataManager(manager);

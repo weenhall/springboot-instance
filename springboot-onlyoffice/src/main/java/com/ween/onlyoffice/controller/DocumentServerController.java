@@ -33,7 +33,7 @@ public class DocumentServerController {
                 InputStream inputStream = connection.getInputStream();
 //                MinioClient client = new MinioClient("http://192.168.2.51:9000", "minioadmin", "minioadmin");
 //                minioClient.putObject("test", "myDoc1.docx", inputStream, (long) inputStream.available(), "application/msword");
-                minioClient.putObject(PutObjectArgs.builder().bucket("test").object("推荐书单1.docx")
+                minioClient.putObject(PutObjectArgs.builder().bucket("test").object("test.docx")
                         .stream(inputStream, inputStream.available(), -1).contentType("application/msword").build());
             } catch (Exception e) {
                 e.printStackTrace();

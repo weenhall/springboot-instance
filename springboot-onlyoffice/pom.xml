@@ -2,19 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.ween</groupId>
+	<parent>
+		<artifactId>parent-modules</artifactId>
+		<groupId>com.ween</groupId>
+		<version>1.0.1</version>
+	</parent>
 	<artifactId>springboot-onlyoffice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-onlyoffice</name>
 	<description>Spring Boot integrate with onlyoffice example</description>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
 	<properties>
-		<java.version>8</java.version>
 		<minio.version>8.0.3</minio.version>
 	</properties>
 	<dependencies>
@@ -40,8 +37,6 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.67</version>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>

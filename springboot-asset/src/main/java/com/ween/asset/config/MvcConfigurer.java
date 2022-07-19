@@ -18,13 +18,13 @@ public class MvcConfigurer extends WebMvcConfigurationSupport {
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogInterceptor()).addPathPatterns("/**");
-        super.addInterceptors(registry);
+        registry.addInterceptor(new LogInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/index","/index.html");
     }
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
-        super.addResourceHandlers(registry);
     }
 }

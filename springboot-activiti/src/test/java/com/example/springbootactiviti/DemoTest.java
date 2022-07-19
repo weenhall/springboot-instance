@@ -8,11 +8,8 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.activiti.rest.service.api.engine.CommentRequest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.Map;
  * Created by ween on 2019/3/22
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoTest {
 

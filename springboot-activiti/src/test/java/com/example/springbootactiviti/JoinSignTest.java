@@ -1,14 +1,13 @@
 package com.example.springbootactiviti;
 
 import com.example.springbootactiviti.base.ActivitiCoreBase;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.assertj.core.util.Maps;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
 /**
  * 会签流程测试
  */
-@RunWith(SpringRunner.class)
+@Slf4j
 @SpringBootTest
 public class JoinSignTest {
 

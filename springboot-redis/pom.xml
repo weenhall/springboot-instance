@@ -3,19 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<artifactId>parent-modules</artifactId>
+		<groupId>com.ween</groupId>
+		<version>1.0.1</version>
 	</parent>
-	<groupId>com.ween</groupId>
 	<artifactId>springboot-redis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-redis</name>
 	<description>Demo project for Spring Boot intergrate with redis</description>
 
 	<properties>
-		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
@@ -32,12 +29,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 

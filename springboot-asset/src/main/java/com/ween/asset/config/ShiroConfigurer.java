@@ -28,11 +28,14 @@ public class ShiroConfigurer {
         bean.setLoginUrl("/user/login");
 
         LinkedHashMap<String, String> filterChainDefinition = new LinkedHashMap<>();
-        filterChainDefinition.put("/user/login", "anno");
-        filterChainDefinition.put("/static/*", "anno");
-        filterChainDefinition.put("/*", "authc");
-        filterChainDefinition.put("/**", "authc");
-        filterChainDefinition.put("/*.*", "authc");
+        filterChainDefinition.put("/user/login","anon");
+        filterChainDefinition.put("/css/**","anon");
+        filterChainDefinition.put("/fonts/**","anon");
+        filterChainDefinition.put("/img/**","anon");
+        filterChainDefinition.put("/js/**","anon");
+
+        filterChainDefinition.put("/**","authc");
+        bean.setFilterChainDefinitionMap(filterChainDefinition);
         return bean;
     }
 

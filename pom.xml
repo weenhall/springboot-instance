@@ -23,6 +23,7 @@
         <hutool.version>5.8.4</hutool.version>
         <oshi.version>6.2.1</oshi.version>
         <easyexcel.version>3.1.1</easyexcel.version>
+        <fastjson.version>2.0.9</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,11 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -62,7 +68,6 @@
         <module>springboot-security</module>
         <module>springboot-session</module>
         <module>springboot-shiro</module>
-        <module>springboot-swagger</module>
         <module>springboot-websocket</module>
     </modules>
 </project>

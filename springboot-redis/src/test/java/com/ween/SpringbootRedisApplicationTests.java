@@ -24,7 +24,8 @@ class SpringbootRedisApplicationTests {
 	@Test
 	void findById(){
 		Book book=redisTemplate.opsForValue().get("book-001");
-		System.out.println(book.toString());
+		assert book != null;
+		System.out.println(book);
 	}
 
 }

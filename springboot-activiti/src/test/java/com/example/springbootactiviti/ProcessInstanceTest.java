@@ -13,13 +13,10 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
-
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.InputStream;
@@ -32,7 +29,6 @@ import java.util.Map;
  * 流程实例相关
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProcessInstanceTest {
 
@@ -40,6 +36,19 @@ public class ProcessInstanceTest {
 	ActivitiCoreBase coreBase;
 	@Resource
 	ProcessEngineConfiguration processEngineConfiguration;
+
+	/**
+	 * 启动流程
+	 */
+	@Test
+	public void startProcess(){
+		String processKey="grouptask";
+		String tenantId="TEST";
+		coreBase.getIdentityService().setAuthenticatedUserId("admin");
+		ProcessInstance instance=coreBase.getRuntimeService().startProcessInstanceByKeyAndTenantId(processKey,tenantId);
+		log.info("{} started {}",instance.getStartUserId(),instance.getProcessDefinitionName());
+		log.info("processInstanceId:{}",instance.getId());
+	}
 
 	/**
 	 * 获取所有流程实例
