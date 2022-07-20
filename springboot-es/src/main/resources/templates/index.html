@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ES FOR SEARCH</title>
+    <title>诗词搜索</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}">
     <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
@@ -67,18 +67,22 @@
             </span>
                 </div>
             </div>
-            <div class="well search-result">
-                <div class="row">
-                    <a href="#">
-                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
-                            <img class="img-responsive" src="https://via.placeholder.com/400x200/7B68EE/000000" alt="">
-                        </div>
-                        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-                            <h3>Result name one</h3>
-                            <p>Ut quis libero id orci semper porta ac vel ante. In nec laoreet sapien. Nunc hendrerit
-                                ligula at massa sodales, ullamcorper rutrum orci semper.</p>
-                        </div>
-                    </a>
+            <div id="result-body">
+                <div class="well search-result">
+<!--                    <div class="row">-->
+<!--                        <a href="#">-->
+<!--                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">-->
+<!--                                <img class="img-responsive" src="https://via.placeholder.com/400x200/7B68EE/000000"-->
+<!--                                     alt="">-->
+<!--                            </div>-->
+<!--                            <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">-->
+<!--                                <h3>Result name one</h3>-->
+<!--                                <p>Ut quis libero id orci semper porta ac vel ante. In nec laoreet sapien. Nunc-->
+<!--                                    hendrerit-->
+<!--                                    ligula at massa sodales, ullamcorper rutrum orci semper.</p>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
                 </div>
             </div>
             <div class="row">
@@ -90,13 +94,41 @@
     </div>
 </div>
 <script>
+    $(document).keydown(function (e){
+        if(e.keyCode===13){
+            search();
+        }
+    })
+
     function search() {
-        var keyword=$('input[name="keyword"]').val();
-        if(keyword.trim().length===0){
+        var keyword = $('input[name="keyword"]').val();
+        if (keyword.trim().length === 0) {
             return;
         }
-        console.log("search keyword:%s",keyword);
-        debugger;
+        console.log("search keyword:%s", keyword);
+        $.ajax({
+            type: 'POST',
+            url: '/songci/search',
+            data: {
+                keyword: keyword
+            },
+            // dataType:'json',
+            success: function (data) {
+                if (data) {
+                    var html='';
+                    for (let i = 0; i < data.length; i++) {
+                        html+='<div class="well search-result">';
+                        html+='<p class="text-center">'+data[i]['rhythmic']+'</p>';
+                        html+='<p class="text-right">'+data[i]['author']+'</p>';
+                        for (let index in data[i]['paragraphs']) {
+                            html+='<p class="text-center">'+data[i]['paragraphs'][index]+'</p>';
+                        }
+                        html+='</div>';
+                    }
+                    $('#result-body').html(html);
+                }
+            }
+        });
     }
 </script>
 </body>

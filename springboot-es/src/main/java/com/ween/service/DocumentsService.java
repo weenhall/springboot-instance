@@ -7,6 +7,7 @@ import com.ween.model.Documents;
 import com.ween.repository.DocumentsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -20,8 +21,8 @@ public class DocumentsService {
 
 	@Autowired
 	private DocumentsRepository documentsRepository;
-//	@Autowired
-//	private ElasticsearchClient elasticsearchClient=new ElasticsearchClient();
+	@Autowired
+	private ElasticsearchClient elasticsearchClient;
 
 	public String listAll() throws IOException {
 //		SearchRequest request=new SearchRequest.Builder().build();
