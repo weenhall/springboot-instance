@@ -70,6 +70,26 @@ public class ProcessInstanceTest {
 		});
 	}
 
+	@Test
+	public void getUserProcessInstance(){
+		String user="admin";
+		List<ProcessInstance> list=coreBase.getRuntimeService().createProcessInstanceQuery()
+				.startedBy(user)
+				.list();
+		list.forEach(pi -> {
+			log.info("============分割线=============");
+			log.info("流程实例ID:{}", pi.getId());
+			log.info("流程名称:{}", pi.getProcessDefinitionName());
+			log.info("业务标题:{}", pi.getName());
+			Task task = coreBase.getTaskService().createTaskQuery().processInstanceId(pi.getId()).singleResult();
+			log.info("当前任务:{}", task.getName());
+			log.info("办理人:{}", task.getAssignee());
+			log.info("实例开始时间:{}", pi.getStartTime());
+			log.info("实例开始用户:{}", pi.getStartUserId());
+			log.info("状态:{}", (pi.isSuspended() ? "已挂起" : "运行中"));
+		});
+	}
+
 	/**
 	 * 删除某个流程实例
 	 */
