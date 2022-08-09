@@ -69,5 +69,6 @@
         <module>springboot-session</module>
         <module>springboot-shiro</module>
         <module>springboot-websocket</module>
+        <module>springboot-flowable</module>
     </modules>
 </project>

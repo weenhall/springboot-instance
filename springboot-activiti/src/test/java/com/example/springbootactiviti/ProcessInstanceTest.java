@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.InputStream;
@@ -41,13 +42,17 @@ public class ProcessInstanceTest {
 	 * 启动流程
 	 */
 	@Test
-	public void startProcess(){
-		String processKey="grouptask";
-		String tenantId="TEST";
+	public void startProcess() {
+		String processKey = "grouptask";
+		String tenantId = "TEST";
 		coreBase.getIdentityService().setAuthenticatedUserId("admin");
-		ProcessInstance instance=coreBase.getRuntimeService().startProcessInstanceByKeyAndTenantId(processKey,tenantId);
-		log.info("{} started {}",instance.getStartUserId(),instance.getProcessDefinitionName());
-		log.info("processInstanceId:{}",instance.getId());
+		ProcessInstance instance = coreBase.getRuntimeService().createProcessInstanceBuilder()
+				.processDefinitionId(processKey)
+				.tenantId(tenantId)
+				.name("admin启动的任务")
+				.start();
+		log.info("{} started {}", instance.getStartUserId(), instance.getProcessDefinitionName());
+		log.info("processInstanceId:{}", instance.getId());
 	}
 
 	/**
@@ -71,9 +76,9 @@ public class ProcessInstanceTest {
 	}
 
 	@Test
-	public void getUserProcessInstance(){
-		String user="admin";
-		List<ProcessInstance> list=coreBase.getRuntimeService().createProcessInstanceQuery()
+	public void getUserProcessInstance() {
+		String user = "admin";
+		List<ProcessInstance> list = coreBase.getRuntimeService().createProcessInstanceQuery()
 				.startedBy(user)
 				.list();
 		list.forEach(pi -> {
@@ -96,7 +101,7 @@ public class ProcessInstanceTest {
 	@Test
 	public void removeProcessInstance() {
 		String processInstanceId = "";
-		coreBase.getRuntimeService().deleteProcessInstance(processInstanceId,"不想申请了");
+		coreBase.getRuntimeService().deleteProcessInstance(processInstanceId, "不想申请了");
 	}
 
 	/**

@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * 自定义用户组管理
  */
-@Component
 public class CustomGroupEntityManager extends MybatisGroupDataManager {
 
 	private final static String GROUP_DEFAULT="ANONYMOUS";
