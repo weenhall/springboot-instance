@@ -15,7 +15,7 @@ public class FlowableConfig implements EngineConfigurationConfigurer<SpringProce
 		configuration.setLabelFontName(FONT_DEFAULT_NAME);
 		configuration.setAnnotationFontName(FONT_DEFAULT_NAME);
 		//for test env
-		configuration.setJdbcUrl("jdbc:h2:mem:flowable");
-		configuration.setDatabaseSchemaUpdate("create-drop");
+//		configuration.setJdbcUrl("jdbc:h2:mem:flowable");
+//		configuration.setDatabaseSchemaUpdate("create-drop");
 	}
 }
