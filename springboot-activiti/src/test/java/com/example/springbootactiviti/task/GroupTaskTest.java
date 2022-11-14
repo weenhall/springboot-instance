@@ -1,4 +1,4 @@
-package com.example.springbootactiviti;
+package com.example.springbootactiviti.task;
 
 import com.example.springbootactiviti.base.ActivitiCoreBase;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @SpringBootTest
-public class CustomGroupTest {
+public class GroupTaskTest {
 
 	@Autowired
 	private ActivitiCoreBase coreBase;

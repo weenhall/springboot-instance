@@ -1,4 +1,4 @@
-package com.example.springbootactiviti;
+package com.example.springbootactiviti.task;
 
 import com.example.springbootactiviti.base.ActivitiCoreBase;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.assertj.core.util.Maps;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -17,26 +18,30 @@ import java.util.Map;
  */
 @Slf4j
 @SpringBootTest
-public class JoinSignTest {
+public class JoinSignTaskTest {
 
 	@Autowired
 	private ActivitiCoreBase coreBase;
 
 	@Test
-	public void taskStart(){
-		List<String> joinSignList= Arrays.asList("zhangshan","lisi","wangwu");
-		Map<String,Object> vars= Maps.newHashMap("hqList",joinSignList);
-		String processInstanceKey="leaveapply";
-		String tenantId="TEST";
-		ProcessInstance processInstance=coreBase.getRuntimeService().startProcessInstanceByKeyAndTenantId(processInstanceKey,vars,tenantId);
-		System.out.println("租户:"+processInstance.getTenantId()+"  ,启动流程:"+processInstance.getName());
+	public void taskStart() {
+		Map<String, Object> vars = Maps.newHashMap("hqList", "bob,alice");
+		String processInstanceKey = "joinsign";
+		String tenantId = "TEST";
+		ProcessInstance processInstance = coreBase.getRuntimeService().createProcessInstanceBuilder()
+				.processDefinitionKey(processInstanceKey)
+				.tenantId(tenantId)
+				.name("会签任务")
+				.variables(vars)
+				.start();
+		System.out.println("租户:" + processInstance.getTenantId() + "  ,启动流程:" + processInstance.getName());
 	}
 
 	@Test
-	public void joinSignComplete(){
-		List<String> joinSignList= Arrays.asList("11","22","33");
-		List<Task> listOfTask=coreBase.getTaskService().createTaskQuery().taskTenantId("TEST").taskAssigneeIds(joinSignList).list();
-		for (Task task:listOfTask){
+	public void joinSignComplete() {
+		List<String> joinSignList = Arrays.asList("11", "22", "33");
+		List<Task> listOfTask = coreBase.getTaskService().createTaskQuery().taskTenantId("TEST").taskAssigneeIds(joinSignList).list();
+		for (Task task : listOfTask) {
 			System.out.println("==========分割线==========");
 			System.out.println("任务ID:" + task.getId());
 			System.out.println("任务名称:" + task.getName());
@@ -46,15 +51,15 @@ public class JoinSignTest {
 			System.out.println("流程实例ID：" + task.getProcessInstanceId());
 			System.out.println("执行对象ID:" + task.getExecutionId());
 			System.out.println("流程定义ID:" + task.getProcessDefinitionId());
-			System.out.println("本次任务变量:"+task.getTaskLocalVariables());
-			System.out.println("流程定义的变量"+task.getProcessVariables());
+			System.out.println("本次任务变量:" + task.getTaskLocalVariables());
+			System.out.println("流程定义的变量" + task.getProcessVariables());
 			coreBase.getTaskService().complete(task.getId());
 		}
 	}
 
 	@Test
-	public void taskComplete(){
-		Task task=coreBase.getTaskService().createTaskQuery().taskAssignee("admin").singleResult();
+	public void taskComplete() {
+		Task task = coreBase.getTaskService().createTaskQuery().taskAssignee("admin").singleResult();
 		coreBase.getTaskService().complete(task.getId());
 	}
 }

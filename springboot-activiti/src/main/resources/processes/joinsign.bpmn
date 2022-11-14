@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/leaveapply">
-  <process id="leaveapply" name="test" isExecutable="true">
+  <process id="joinsign" name="test" isExecutable="true">
     <startEvent id="sid-B2793AF4-EED0-4117-B392-C026471FE0DE" activiti:formKey="leaveapply"></startEvent>
     <userTask id="sid-0BFE5D49-2DC3-4F02-A3A2-C0722F273742" name="会签" activiti:assignee="${assignee}">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${flowUtil.stringToList(&quot;11,22,33&quot;)}" activiti:elementVariable="assignee">

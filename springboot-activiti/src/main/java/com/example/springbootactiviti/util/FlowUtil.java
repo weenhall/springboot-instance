@@ -2,14 +2,14 @@ package com.example.springbootactiviti.util;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Component("flowUtil")
 public class FlowUtil {
 
-	public List<String> stringToList(String val){
-		String [] arr=val.split(",");
-		return Arrays.asList(arr);
+	public List<String> stringToList(String val) {
+		System.out.println(val);
+//		return Arrays.asList("zhangshan","lisi");
+		return Arrays.asList("bob","alice");
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.springbootactiviti;
+package com.example.springbootactiviti.task;
 
 import com.example.springbootactiviti.base.ActivitiCoreBase;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @SpringBootTest
-public class TaskTest {
+public class TaskQueryTest {
 
 	@Autowired
 	private ActivitiCoreBase coreBase;
@@ -46,8 +46,8 @@ public class TaskTest {
 	 */
 	@Test
 	public void myTobeClaimed(){
-		String currentUser="";
-		String currentUserGroup="";
+		String currentUser="admin";
+		String currentUserGroup="default";
 		List<Task> candidateTask=coreBase.getTaskService().createTaskQuery()
 				.taskCandidateUser(currentUser)
 				.active()
