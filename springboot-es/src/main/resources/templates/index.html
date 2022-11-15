@@ -60,7 +60,7 @@
                 <div class="input-group">
                     <input name="keyword" type="text" class="form-control" placeholder="输入关键词"/>
                     <span class="input-group-btn">
-              <button class="btn btn-info btn-lg" type="button" onclick="search()">
+              <button class="btn btn-info btn-lg" type="button" onclick="search(0,5,false)">
                         <i class="glyphicon glyphicon-search"></i>
                         搜索
                     </button>
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="button" class="btn btn-info  btn-block">
+                <button type="button" class="btn btn-info  btn-block btn-more" onclick="loadMore()">
                     <i class="glyphicon glyphicon-refresh"></i>加载更多...
                 </button>
             </div>
@@ -100,7 +100,16 @@
         }
     })
 
-    function search() {
+    function loadMore(){
+        let pageNum=1;
+        if(sessionStorage.getItem('pageNum')){
+            pageNum=Number(sessionStorage.getItem('pageNum'))+1;
+        }
+        sessionStorage.setItem('pageNum',pageNum+'');
+        search(pageNum,5,true);
+    }
+
+    function search(pageNum,pageSize,loadmore) {
         var keyword = $('input[name="keyword"]').val();
         if (keyword.trim().length === 0) {
             return;
@@ -110,7 +119,9 @@
             type: 'POST',
             url: '/songci/search',
             data: {
-                keyword: keyword
+                keyword: keyword,
+                page:pageNum||0,
+                size:pageSize||5
             },
             // dataType:'json',
             success: function (data) {
@@ -125,7 +136,12 @@
                         }
                         html+='</div>';
                     }
-                    $('#result-body').html(html);
+                    if(loadmore){
+                        $('#result-body').append(html);
+                    }else {
+                        sessionStorage.removeItem('pageNum')
+                        $('#result-body').html(html);
+                    }
                 }
             }
         });

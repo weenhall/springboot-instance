@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.1</version>
+        <version>2.7.5</version>
         <relativePath/>
     </parent>
 
@@ -60,6 +60,8 @@
         <module>springboot-asset</module>
         <module>springboot-easyexcel</module>
         <module>springboot-es</module>
+        <module>springboot-flowable</module>
+        <module>springboot-hibernate</module>
         <module>springboot-itext</module>
         <module>springboot-kafka</module>
         <module>springboot-mysql-json</module>
@@ -69,6 +71,5 @@
         <module>springboot-session</module>
         <module>springboot-shiro</module>
         <module>springboot-websocket</module>
-        <module>springboot-flowable</module>
     </modules>
 </project>
