@@ -59,7 +59,10 @@ public class DynamicTaskAssignTest {
 		for (int i = 0; i < tasks.size(); i++) {
 			Task task=tasks.get(i);
 			log.info("Task:{} ,old-assignee:{}",task.getName(),task.getAssignee());
+			//assignee,candidateUser,candidateGroup
 			coreBase.getTaskService().setAssignee(task.getId(),USER_HANDLER+i);
+//			coreBase.getTaskService().addCandidateUser(task.getId(),USER_HANDLER+i);
+//			coreBase.getTaskService().addCandidateGroup(task.getId(),"testGroup");
 			task.setAssignee(USER_HANDLER+i);
 		}
 		for (Task task : tasks) {
