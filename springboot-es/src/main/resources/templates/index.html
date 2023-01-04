@@ -85,10 +85,13 @@
 <!--                    </div>-->
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="load">
                 <button type="button" class="btn btn-info  btn-block btn-more" onclick="loadMore()">
                     <i class="glyphicon glyphicon-refresh"></i>加载更多...
                 </button>
+            </div>
+            <div class="row" id="unload" style="display: none">
+                <p style="text-align: center">暂无更多</p>
             </div>
         </div>
     </div>
@@ -125,7 +128,7 @@
             },
             // dataType:'json',
             success: function (data) {
-                if (data) {
+                if (data&&data.length>0) {
                     var html='';
                     for (let i = 0; i < data.length; i++) {
                         html+='<div class="well search-result">';
@@ -141,6 +144,14 @@
                     }else {
                         sessionStorage.removeItem('pageNum')
                         $('#result-body').html(html);
+                    }
+                    $('#load').show();
+                    $('#unload').hide();
+                }else{
+                    $('#load').hide();
+                    $('#unload').show();
+                    if(!loadmore){
+                        $('#result-body').html('');
                     }
                 }
             }
