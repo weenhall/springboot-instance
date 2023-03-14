@@ -41,6 +41,12 @@ public class SongCiTest {
 	}
 
 	@Test
+	public void repSearch(){
+		long size= repository.count();
+		System.out.println(size);
+	}
+
+	@Test
 	public void search() throws Exception {
 		String keyword="春天";
 		String indexName="songci";
